@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://SachinKumar30.github.io/my-portfolio/sitemap.xml
