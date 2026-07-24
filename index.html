@@ -6,6 +6,61 @@
 <meta name="theme-color" content="#0A1220">
 <title>Sachin Kumar - Senior Project Manager, PMP®</title>
 <meta name="description" content="Sachin Kumar, PMP® certified Senior Project Manager and Delivery Expert. Contact details, LinkedIn and resume.">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://sachinkumar30.github.io/my-portfolio/">
+
+<!-- Open Graph (LinkedIn, WhatsApp, Facebook, Slack previews) -->
+<meta property="og:type" content="profile">
+<meta property="og:title" content="Sachin Kumar - Senior Project Manager, PMP®">
+<meta property="og:description" content="PMP® certified Senior Project Manager with 10+ years leading multi-million-dollar IT delivery across Automotive, Banking & Life Sciences.">
+<meta property="og:image" content="https://sachinkumar30.github.io/my-portfolio/Assets/profile.jpg">
+<meta property="og:image:width" content="800">
+<meta property="og:image:height" content="800">
+<meta property="og:url" content="https://sachinkumar30.github.io/my-portfolio/">
+<meta property="og:site_name" content="Sachin Kumar">
+<meta property="profile:first_name" content="Sachin">
+<meta property="profile:last_name" content="Kumar">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Sachin Kumar - Senior Project Manager, PMP®">
+<meta name="twitter:description" content="PMP® certified Senior Project Manager with 10+ years leading multi-million-dollar IT delivery across Automotive, Banking & Life Sciences.">
+<meta name="twitter:image" content="https://sachinkumar30.github.io/my-portfolio/Assets/profile.jpg">
+
+<!-- Structured data: helps Google understand and display this as a professional profile -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Sachin Kumar",
+  "jobTitle": "Senior Project Manager",
+  "description": "PMP® certified Senior Project Manager and Delivery Expert with 10+ years leading multi-million-dollar IT transformation projects across Automotive, Banking, Life Sciences, AI/ML, Blockchain, AR/VR, and Gaming domains.",
+  "url": "https://sachinkumar30.github.io/my-portfolio/",
+  "image": "https://sachinkumar30.github.io/my-portfolio/Assets/profile.jpg",
+  "email": "mailto:sachinoffice2@gmail.com",
+  "telephone": "+91-9873682830",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Delhi",
+    "addressCountry": "IN"
+  },
+  "sameAs": [
+    "https://www.linkedin.com/in/sachin-kumar-pm/"
+  ],
+  "hasCredential": [
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Project Management Professional (PMP)",
+      "credentialCategory": "certification",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Project Management Institute"
+      }
+    }
+  ]
+}
+</script>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230A1220'/%3E%3Ctext x='32' y='42' font-family='Georgia,serif' font-size='30' fill='%234ADE9C' text-anchor='middle'%3ESK%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -36,6 +91,14 @@
   html{scroll-behavior:smooth;}
 
   ::selection{background:var(--accent-green); color:#08130E;}
+
+  /* Fade the whole page in on first load to avoid a flash of unstyled content
+     while web fonts finish loading */
+  body{ animation:pageFadeIn 0.45s var(--ease, ease) both; }
+  @keyframes pageFadeIn{ from{ opacity:0; } to{ opacity:1; } }
+  @media (prefers-reduced-motion: reduce){
+    body{ animation:none; }
+  }
 
   body{
     background:
@@ -153,6 +216,11 @@
     border-radius:50%;
     overflow:hidden;
     background:var(--bg-base);
+  }
+  .photo-frame picture{
+    display:block;
+    width:100%;
+    height:100%;
   }
   .photo-frame img{
     width:100%;
@@ -572,25 +640,34 @@
 
   /* ---------- Modal (resume viewer) ---------- */
   .modal-overlay{
-    display:none;
     position:fixed;
     inset:0;
     background:rgba(5,9,16,0.82);
     backdrop-filter:blur(4px);
     z-index:100;
+    display:flex;
     align-items:center;
     justify-content:center;
     padding:24px;
+    opacity:0;
+    visibility:hidden;
+    transition:opacity 0.25s var(--ease), visibility 0s linear 0.25s;
   }
   .modal-overlay.open{
-    display:flex;
+    opacity:1;
+    visibility:visible;
+    transition:opacity 0.25s var(--ease), visibility 0s linear 0s;
   }
-  @media (prefers-reduced-motion: no-preference){
-    .modal-overlay.open{ animation:fadeIn 0.2s var(--ease); }
-    .modal-overlay.open .modal{ animation:modalIn 0.3s var(--ease); }
+  .modal{
+    transform:translateY(10px) scale(0.98);
+    transition:transform 0.25s var(--ease);
   }
-  @keyframes fadeIn{ from{opacity:0;} to{opacity:1;} }
-  @keyframes modalIn{ from{opacity:0; transform:translateY(12px) scale(0.98);} to{opacity:1; transform:none;} }
+  .modal-overlay.open .modal{
+    transform:none;
+  }
+  @media (prefers-reduced-motion: reduce){
+    .modal-overlay, .modal{ transition:none; }
+  }
   .modal{
     background:var(--surface-solid);
     border:1px solid var(--hairline-strong);
@@ -710,9 +787,114 @@
       flex:1;
       justify-content:center;
     }
+
+    .mini-nav-name{ display:none; }
+    .mini-nav-inner{ justify-content:center; padding:12px 16px; }
+    .mini-nav-links{ gap:14px; }
+    .back-to-top{ bottom:16px; right:16px; width:40px; height:40px; }
   }
 
   :focus-visible{ outline:2px solid var(--accent-green); outline-offset:3px; border-radius:4px; }
+
+  /* ---------- Mini nav (appears on scroll) ---------- */
+  .mini-nav{
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    z-index:30;
+    background:rgba(10,18,32,0.85);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--hairline);
+    transform:translateY(-100%);
+    transition:transform 0.3s var(--ease);
+  }
+  .mini-nav.show{ transform:translateY(0); }
+  .mini-nav-inner{
+    max-width:960px;
+    margin:0 auto;
+    padding:12px 28px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:16px;
+  }
+  .mini-nav-name{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:14.5px;
+    white-space:nowrap;
+  }
+  .mini-nav-links{
+    display:flex;
+    gap:18px;
+    flex-wrap:wrap;
+  }
+  .mini-nav-links a{
+    font-size:12.5px;
+    font-weight:600;
+    color:var(--text-muted);
+    text-decoration:none;
+    transition:color 0.2s var(--ease);
+    white-space:nowrap;
+  }
+  .mini-nav-links a:hover{ color:var(--accent-green); }
+
+  /* ---------- Back to top ---------- */
+  .back-to-top{
+    position:fixed;
+    bottom:24px;
+    right:24px;
+    width:44px;
+    height:44px;
+    border-radius:50%;
+    background:var(--surface-solid);
+    border:1px solid var(--hairline-strong);
+    color:var(--text-primary);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    z-index:30;
+    opacity:0;
+    visibility:hidden;
+    transform:translateY(8px);
+    transition:opacity 0.25s var(--ease), transform 0.25s var(--ease), border-color 0.2s var(--ease), background 0.2s var(--ease);
+    box-shadow:0 8px 24px -8px rgba(0,0,0,0.5);
+  }
+  .back-to-top.show{
+    opacity:1;
+    visibility:visible;
+    transform:none;
+  }
+  .back-to-top:hover, .back-to-top:focus-visible{
+    border-color:var(--accent-green-dim);
+    background:var(--surface-2);
+  }
+  .back-to-top svg{ width:18px; height:18px; }
+
+  /* ---------- Print ---------- */
+  @media print{
+    body{ background:#fff !important; color:#111 !important; animation:none !important; }
+    body::before{ display:none !important; }
+    .statusbar, .mini-nav, .btn, .cta-row, .cert-view-btn, .cf-actions,
+    .back-to-top, .modal-overlay{ display:none !important; }
+    .wrap{ max-width:100%; padding:0 10px; }
+    h1, .section-title, .cert-featured h3{ color:#111 !important; -webkit-text-fill-color:#111 !important; background:none !important; }
+    .role-line, .stat-label, .cert-date, .section-note, .tl-tooltip{ color:#333 !important; }
+    .timeline-card, .stat, .cert-card, .cert-featured{
+      background:#fff !important;
+      border:1px solid #ccc !important;
+      box-shadow:none !important;
+      break-inside:avoid;
+    }
+    .stat-num{ color:#111 !important; }
+    .chip{ border:1px solid #999 !important; background:#fff !important; color:#111 !important; }
+    a[href^="mailto"]::after, a[href^="tel"]::after{ content:" (" attr(href) ")"; font-size:11px; color:#555; }
+    a[href^="mailto"]::after{ content:""; }
+    .tl-tooltip{ display:block !important; position:static !important; background:none !important; border:none !important; box-shadow:none !important; }
+    .reveal{ opacity:1 !important; transform:none !important; }
+  }
 </style>
 </head>
 <body>
@@ -723,6 +905,17 @@
       <div>Delhi, India</div>
     </div>
   </div>
+
+  <nav class="mini-nav" id="miniNav">
+    <div class="mini-nav-inner">
+      <span class="mini-nav-name">Sachin Kumar</span>
+      <div class="mini-nav-links">
+        <a href="#timeline">Timeline</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
 
   <main class="wrap">
     <section class="hero">
@@ -736,7 +929,7 @@
         <h1 class="reveal">Sachin Kumar</h1>
         <p class="role-line reveal"><strong>PMP® · Senior Project Manager</strong> - Transforming businesses through technology, innovation, and delivery excellence across global markets and diverse industry domains.</p>
 
-        <div class="contact-chips reveal">
+        <div class="contact-chips reveal" id="contact">
           <a class="chip" href="mailto:sachinoffice2@gmail.com">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18v12H3z"/><path d="m3 7 9 6 9-6"/></svg>
             sachinoffice2@gmail.com
@@ -760,6 +953,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
             Download Resume
           </a>
+          <button class="btn btn-secondary" id="saveContactBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg>
+            Save Contact
+          </button>
         </div>
       </div>
     </section>
@@ -873,6 +1070,10 @@
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><path d="M7 10l5 5 5-5"/><path d="M12 15V3"/></svg>
             Download
           </a>
+          <a href="https://www.pmi.org/certifications/certification-resources/registry" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            Verify
+          </a>
         </div>
       </div>
 
@@ -980,10 +1181,14 @@
     </section>
 
     <footer>
-      <div>© 2026 Sachin Kumar.</div>
+      <div>© 2026 Sachin Kumar. Profile last updated: July 2026.</div>
       <div><a href="mailto:sachinoffice2@gmail.com">Email</a> &nbsp;·&nbsp; <a href="https://www.linkedin.com/in/sachin-kumar-pm/" target="_blank" rel="noopener">LinkedIn</a></div>
     </footer>
   </main>
+
+  <button class="back-to-top" id="backToTopBtn" aria-label="Back to top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 19V5"/><path d="M5 12l7-7 7 7"/></svg>
+  </button>
 
   <div class="modal-overlay" id="modalOverlay">
     <div class="modal" role="dialog" aria-modal="true" aria-label="Resume viewer">
@@ -1015,9 +1220,9 @@
     function openModal(){ openDocModal(RESUME_PATH, 'Sachin_Kumar_Resume.pdf'); }
     function closeModal(){
       overlay.classList.remove('open');
-      frame.src = '';
       document.body.style.overflow = '';
       if(lastFocused) lastFocused.focus(); else viewBtn.focus();
+      setTimeout(() => { frame.src = ''; }, 260);
     }
     viewBtn.addEventListener('click', openModal);
     closeBtn.addEventListener('click', closeModal);
@@ -1039,6 +1244,48 @@
     } else {
       revealEls.forEach(el => el.classList.add('in-view'));
     }
+
+    // Mini-nav + back-to-top: show after scrolling past the hero
+    const miniNav = document.getElementById('miniNav');
+    const backToTop = document.getElementById('backToTopBtn');
+    const heroSection = document.querySelector('.hero');
+    const scrollThreshold = () => (heroSection ? heroSection.offsetTop + heroSection.offsetHeight : 400);
+    function onScroll(){
+      const past = window.scrollY > scrollThreshold();
+      miniNav.classList.toggle('show', past);
+      backToTop.classList.toggle('show', window.scrollY > 500);
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // Save Contact — generates a vCard on the fly, no server needed
+    document.getElementById('saveContactBtn').addEventListener('click', () => {
+      const vcard = [
+        'BEGIN:VCARD',
+        'VERSION:3.0',
+        'N:Kumar;Sachin;;;',
+        'FN:Sachin Kumar',
+        'TITLE:Senior Project Manager, PMP®',
+        'ORG:HTC Global Services',
+        'TEL;TYPE=CELL:+919873682830',
+        'EMAIL:sachinoffice2@gmail.com',
+        'URL:https://www.linkedin.com/in/sachin-kumar-pm/',
+        'ADR;TYPE=WORK:;;Delhi;;;;India',
+        'END:VCARD'
+      ].join('\r\n');
+      const blob = new Blob([vcard], { type: 'text/vcard' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'Sachin_Kumar.vcf';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+    });
   </script>
 
 </body>
