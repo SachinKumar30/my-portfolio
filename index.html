@@ -649,10 +649,67 @@
     .role-line{ margin-left:auto; margin-right:auto; }
     .contact-chips, .cta-row{ justify-content:center; }
     .stats-grid{ grid-template-columns:repeat(2, 1fr); }
-    .tl-tooltip{ left:0; transform:none; }
-    .tl-tooltip::after{ left:20px; }
     footer{ flex-direction:column; text-align:center; }
-    .timeline-card{ padding:20px 16px; }
+    .timeline-card{ padding:18px; }
+
+    /* Timeline becomes a vertical stacked list on mobile — horizontal bar
+       segments get too narrow to read below ~720px */
+    .timeline-track{
+      flex-direction:column;
+      height:auto;
+      gap:10px;
+    }
+    .tl-seg{
+      width:100%;
+      min-width:0;
+      height:auto;
+      flex-direction:column;
+      justify-content:flex-start;
+      align-items:flex-start;
+      padding:14px 16px;
+      flex:none !important;
+    }
+    .tl-seg .tl-label{
+      font-size:13px;
+      font-weight:600;
+      color:var(--text-primary);
+      white-space:normal;
+      overflow:visible;
+      text-overflow:clip;
+      padding:0;
+    }
+    .tl-seg.current .pulse{ top:14px; right:14px; }
+    .tl-tooltip{
+      display:block;
+      position:static;
+      transform:none;
+      background:none;
+      border:none;
+      border-radius:0;
+      box-shadow:none;
+      padding:8px 0 0;
+      margin-top:8px;
+      border-top:1px solid var(--hairline);
+      width:100%;
+      max-width:none;
+      font-size:12px;
+    }
+    .tl-tooltip::after{ display:none; }
+    .timeline-scale{ display:none; }
+
+    .cert-featured{
+      grid-template-columns:1fr;
+      justify-items:start;
+      padding:22px 20px;
+    }
+    .cert-featured .cf-actions{
+      width:100%;
+    }
+    .cert-featured .cf-actions button,
+    .cert-featured .cf-actions a{
+      flex:1;
+      justify-content:center;
+    }
   }
 
   :focus-visible{ outline:2px solid var(--accent-green); outline-offset:3px; border-radius:4px; }
